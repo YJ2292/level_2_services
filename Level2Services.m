@@ -109,10 +109,18 @@ output2=[header;num2cell(Tableau_Resume)];
 disp(output2);
 
 %Simplification du ID 
-for i=1:size(Tableau_Resume,1)
-    Tableau_Resume(i,1)=i;
-end
+no_id=1
+Tableau_Resume(1,1)=no_id;
+
+for i=1:size(Tableau_Resume,1)-1
+    if Tableau_Resume(i,3)==Tableau_Resume(i+1,3) && Tableau_Resume(i,4)==Tableau_Resume(i+1,4) && Tableau_Resume(i,2)==Tableau_Resume(i+1,2)
+        Tableau_Resume(i+1,1)=Tableau_Resume(i,1)
+    else
+        Tableau_Resume(i+1,1)=no_id+1;
+        no_id=no_id+1
+    end
     
+end 
 %Transformation en fichier txt
 %Table de niveau 2 sans l'application de l'angle de similarité limite
 Fich_txt=array2table(Tableau_Resume,'VariableNames',header);
