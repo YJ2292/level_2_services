@@ -12,14 +12,15 @@ off_sem=readtable('Offre_Semaine_Etudecas2.csv'); %Lecture de la Table CSV deman
 off_sem=off_sem((off_sem{:,13})>=0 & (off_sem{:,13})<=1,:); 
 
 e=1;
-no_trajet=1
+no_trajet=1;
 %Initialisations de la boucle 
 for i=1:size(off_sem,1)-1
-    if off_sem{i,6}==off_sem{i+1,6} && strcmp(off_sem{i,10},off_sem{i+1,10})==1
-        off_sem{i,20}=no_trajet
+    disp(i)
+    if off_sem{i,6}==off_sem{i+1,6} && strcmp(off_sem{i,10},off_sem{i+1,10})==1;
+        off_sem{i,20}=no_trajet;
     else
-        no_trajet=no_trajet+1
-        off_sem{i,20}=no_trajet
+        no_trajet=no_trajet+1;
+        off_sem{i,20}=no_trajet;
     end
 end
         
@@ -81,9 +82,8 @@ end
 name=name(name(:,1)>=0.5,:);
 header = {'Xorigine','Yorigine','Xdestination','Ydestination','ID arret origine','ID arret destination','NoTrajet'};
 output=[header;num2cell(name)];
-disp(output)
 
-%% Calcul du nombre de repetion du linestring par trajet 
+%% Calcul du nombre de repetion du linestring 
 
 Col_Concat=zeros(length(name),1);
 
@@ -99,7 +99,6 @@ Rep=unique(name(:,8));
 Rep_Count=histc(name(:,8),Rep);
 
 Rep=[Rep Rep_Count];
-disp(Rep)
 Tableau_Resume=zeros(length(Rep),7);
 
 for m=1:length(Rep)
@@ -119,15 +118,15 @@ disp(output2);
 
 Tableau_Resume=sortrows(Tableau_Resume,[7],'ascend');
 
-no_id=1
+no_id=1;
 Tableau_Resume(1,1)=no_id;
 
 for i=1:size(Tableau_Resume,1)-1
     if Tableau_Resume(i,7)==Tableau_Resume(i+1,7)
-        Tableau_Resume(i+1,1)=Tableau_Resume(i,1)
+        Tableau_Resume(i+1,1)=Tableau_Resume(i,1);
     else
         Tableau_Resume(i+1,1)=no_id+1;
-        no_id=no_id+1
+        no_id=no_id+1;
     end  
 end
 
@@ -183,35 +182,36 @@ Fich_txt(toDelete2,:) = [];
 
 %% Calcul du Taux de détour (s'assure de ne pas compter les segments similaires deux fois ou plus  
 
+%Recherche Taux de detour
 
-A = table2array(Fich_txt)
-B = table2array(Fich_txt_niv2_nonNettoye)
+A = table2array(Fich_txt);
+B = table2array(Fich_txt_niv2_nonNettoye);
 
-A = sortrows(A,[3 4 5 6])
-B = sortrows(B,[3 4 5 6])
+A = sortrows(A,[3 4 5 6]);
+B = sortrows(B,[3 4 5 6]);
 
-Concat=zeros(length(A),1)
-Concat_B= zeros(length(B),1)
+Concat=zeros(length(A),1);
+Concat_B= zeros(length(B),1);
 
-ID_similaire=1
-A(1,10)=1
-B(1,10)=1
+ID_similaire=1;
+A(1,10)=1;
+B(1,10)=1;
 
 for l=1:length(A)-1
     if A(l,3)==A(l+1,3) && A(l,4)==A(l+1,4) && A(l,5)==A(l+1,5) && A(l,6)==A(l+1,6)
-        A(l+1,10)= ID_similaire
+        A(l+1,10)= ID_similaire;
     else
-        ID_similaire=ID_similaire+1
-        A(l+1,10)= ID_similaire
+        ID_similaire=ID_similaire+1;
+        A(l+1,10)= ID_similaire;
     end
 end
-ID_similaire=1
+ID_similaire=1;
 for l=1:length(B)-1
     if B(l,3)==B(l+1,3) && B(l,4)==B(l+1,4) && B(l,5)==B(l+1,5) && B(l,6)==B(l+1,6)
-        B(l+1,10)= ID_similaire
+        B(l+1,10)= ID_similaire;
     else
-        ID_similaire=ID_similaire+1
-        B(l+1,10)= ID_similaire
+        ID_similaire=ID_similaire+1;
+        B(l+1,10)= ID_similaire;
     end
 end
 
