@@ -9,7 +9,7 @@ off_sem=readtable('Offre_Semaine_Etudecas2.csv'); %Lecture de la Table CSV deman
 %Il faut choisir la plage horaire souhaitée en format décimal 
 %(00:00=0, 06:00=0.25, 09:00=0.375,12:00=0.5, 18:00=0.75, 21:00=0.875 )
 
-off_sem=off_sem((off_sem{:,13})>=0 & (off_sem{:,13})<=1,:); 
+off_sem=off_sem((off_sem{:,13})>=0.25 & (off_sem{:,13})<=0.29,:); 
 
 e=1;
 no_trajet=1;
@@ -146,7 +146,7 @@ for i=1:size(Fich_txt,1)
     else 
         for j=i-count:i  
             if j==1
-                Fich_txt{j,7}=atan2(Fich_txt{j,4} - Fich_txt{j,6},Fich_txt{j,3} - Fich_txt{j,5})*360/pi;
+                Fich_txt{j,7}=atan2(Fich_txt{j,4} - Fich_txt{j,6},Fich_txt{j,3} - Fich_txt{j,5})+ 360*(Fich_txt{j,4} - Fich_txt{j,6}<0) %mise en forme en angle entre 0 et 360;
                 Fich_txt{j,8}=nan;
                 Fich_txt{j,9}=nan; 
             elseif j>1 && j<size(Fich_txt,1)
