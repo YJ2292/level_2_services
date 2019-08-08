@@ -153,14 +153,14 @@ for i=1:size(Fich_txt,1)
                 Fich_txt{j,7}=atan2(Fich_txt{j,4} - Fich_txt{j,6},Fich_txt{j,3} - Fich_txt{j,5})*360/pi;
                 Fich_txt{j,8}=Fich_txt{i-count,7} - Fich_txt{j,7}; %Angle par rapport point initial
                 if Fich_txt{j,3}==Fich_txt{j-1,3} && Fich_txt{j,4}==Fich_txt{j-1,4}
-                    Fich_txt{j,9}=Fich_txt{j,7} - Fich_txt{j-1,7};
+                    Fich_txt{j,9}=Fich_txt{j-1,7} - Fich_txt{j,7};
                 else
                     Fich_txt{j,9}=nan;
                 end
             else
                 Fich_txt{j,7}=atan2(Fich_txt{j,4} - Fich_txt{j,6},Fich_txt{j,3}-Fich_txt{j,5})*360/pi;
                 Fich_txt{j,8}=Fich_txt{i-count,7} - Fich_txt{j,7}; %Angle par rapport point initial
-                Fich_txt{j,9}=Fich_txt{j,7} - Fich_txt{j-1,7};
+                Fich_txt{j,9}=Fich_txt{j-1,7} - Fich_txt{j,7};
             end
         end
         count=0;
